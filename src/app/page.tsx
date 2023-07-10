@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <main className='min-h-screen w-screen flex items-center justify-center'>
      {session?.user ? (
-       <h1 className="text-white">{session?.user ? session.user.email : session?.user.name}</h1>
+       <h1 className="text-secondary">{session?.user ? session.user.email : session?.user.name}</h1>
      ) : (
       <LandingPage />
      )}

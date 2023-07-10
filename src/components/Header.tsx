@@ -2,8 +2,8 @@ import React from 'react'
 import UserAccountNav from './UserAccountNav'
 import { getAuthSession } from '@/lib/auth'
 import Link from 'next/link'
-import { buttonVariants } from './ui/button'
 import Logo from './Logo'
+import { ThemeToggle } from './theme-toggle'
 
 
 const Header = async () => {
@@ -15,16 +15,24 @@ const Header = async () => {
     >
         <Logo hasText/>
 
-        {session?.user ? (
-          <UserAccountNav user={session!.user}/>
-        ) : (
-          <Link
-            href="/sign-in"
-            className={buttonVariants({variant: 'secondary', size: 'sm'})}
-          >
-            <p className='text-xs'>Sign in</p>
-          </Link>
-        )}
+        <div
+          className='flex items-center gap-4'
+        >
+          <ThemeToggle />
+
+          {session?.user ? (
+            <UserAccountNav user={session!.user}/>
+          ) : (
+            <Link
+              href="/sign-in"
+              className='flex items-center rounded bg-secondary hover:bg-secondary/75 px-2 py-1 duration-300'
+            >
+              <p className='text-xs text-primary'>Sign in</p>
+            </Link>
+          )}
+
+        </div>
+        
     </div>
   )
 }

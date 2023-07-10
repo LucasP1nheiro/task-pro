@@ -15,6 +15,7 @@ import {
 import UserAvatar from './UserAvatar'
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
+import { AiOutlineHome } from 'react-icons/ai'
 
 interface UserAccountNavProps {
     user: Pick<User, 'name' | 'image' | 'email'>
@@ -26,7 +27,7 @@ const UserAccountNav: FC<UserAccountNavProps> = ({user}) => {
           <DropdownMenuTrigger>
             <UserAvatar 
                 user={user} 
-                className="h-8 w-8"
+                className="h-6 w-6"
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent className='bg-primary border' align='end'>
@@ -41,18 +42,18 @@ const UserAccountNav: FC<UserAccountNavProps> = ({user}) => {
 
            <DropdownMenuSeparator className="bg-tertiary" />
 
-           <DropdownMenuItem asChild className='bg-primary'>
+           <DropdownMenuItem asChild className='bg-primary hover:bg-red-500'>
                 <Link
                     href='/'
-                    className='text-secondary'
+                    className='flex items-center gap-2'
                 >
-                    Home
+                    <AiOutlineHome className="fill-secondary" size={14} />
+                    <p className="text-secondary text-xs">Home</p>
                 </Link>
            </DropdownMenuItem>
 
            <DropdownMenuItem  
-                asChild
-                className='bg-primary flex items-center gap-2' 
+                className='flex items-center gap-2' 
                 onSelect={(event) => {
                     event.preventDefault()
                     signOut({
@@ -60,7 +61,8 @@ const UserAccountNav: FC<UserAccountNavProps> = ({user}) => {
                     })                    
                 }}
             >
-                <p className='text-secondary'>Sign out</p>
+                <FiLogOut className="text-secondary" size={14} />
+                <p className='text-secondary text-xs'>Sign out</p>
            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
