@@ -1,0 +1,55 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1688685226144,
+      "tag": "0000_handy_nebula",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1688688239315,
+      "tag": "0001_mature_guardsmen",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1688952969733,
+      "tag": "0002_unusual_infant_terrible",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1688953269796,
+      "tag": "0003_brown_anita_blake",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1688953340963,
+      "tag": "0004_mixed_nemesis",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1688954240570,
+      "tag": "0005_curious_sunfire",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1689028501954,
+      "tag": "0006_fantastic_luminals",
+      "breakpoints": true
+    }
+  ]
+}
