@@ -4,7 +4,7 @@ import { ClipLoader } from 'react-spinners'
 const LoadingSpinner = () => {
   return (
     <>
-        <ClipLoader color='#fff' size={16}/>
+        <ClipLoader className="fill-black dark:fill-white" size={16}/>
     </>
   )
 }

@@ -11,7 +11,7 @@ const Header = async () => {
 
   return (
     <div
-        className="w-screen h-[10%] border-b flex items-center justify-around fixed top-0"
+        className="w-screen h-[10%] border-b flex items-center justify-around fixed top-0 z-50"
     >
         <Logo hasText/>
 

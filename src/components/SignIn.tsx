@@ -30,7 +30,7 @@ const SignIn = () => {
             </p>
             <Link
                 href="/sign-up"
-                className="text-secondary text-sm"
+                className="text-secondary text-sm font-bold "
             >
                 Sign up
             </Link>
