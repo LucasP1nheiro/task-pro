@@ -1,0 +1,1 @@
+ALTER TABLE `category` MODIFY COLUMN `userId` varchar(191) NOT NULL;

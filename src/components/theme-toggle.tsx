@@ -10,11 +10,6 @@ import { useEffect } from "react"
 export function ThemeToggle() {
   const { setTheme, theme } = useTheme()
 
-  useEffect(() => {
-    console.log(theme)
-  }, [theme])
-
-  console.log(theme)
 
   return (
     <Button

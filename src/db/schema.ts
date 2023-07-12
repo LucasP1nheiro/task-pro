@@ -95,18 +95,22 @@ export type User = InferModel<typeof users>;
 export type NewUser = InferModel<typeof users, 'insert'>;
 
 export const userRelations = relations(users, ({many}) => ({
-    tasks: many(task)
+    tasks: many(task),
+    categories: many(category)
 }))
 
 export const category = mysqlTable("category", {
     id: serial("id").primaryKey().autoincrement().notNull(),
-    name: text("name").notNull()
+    name: text("name").notNull(),
+    userId: varchar('userId', {length: 191}).notNull(),
 })
 
 export type Category = InferModel<typeof category>;
+export type NewCategory = InferModel<typeof category, 'insert'>;
 
-export const categoryRelations = relations(category, ({many}) => ({
-    tasks: many(task)
+export const categoryRelations = relations(category, ({many, one}) => ({
+    tasks: many(task),
+    user: one(users, { fields: [category.userId], references: [users.id] }),
 }))
 
 export const task = mysqlTable("task", {
@@ -127,6 +131,11 @@ export const taskRelations = relations(task, ({ one }) => ({
     user: one(users, { fields: [task.userId], references: [users.id] }),
     category: one(category, { fields: [task.categoryId], references: [category.id] })
 }))
+
+
+export const insertCategory = async (cat: NewCategory) => {
+    return db.insert(category).values(cat)
+}
 
 
   
