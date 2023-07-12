@@ -2,7 +2,7 @@ import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Header from '@/components/Header'
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from '@/components/theme-provider'
 import Providers from '@/components/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,10 +18,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" >
-      <body className={"bg-primary " + inter.className}>
+    <html lang="en">
+      <body className={'bg-primary ' + inter.className}>
         <Providers>
-          <ThemeProvider  attribute="class" defaultTheme="dark" enableSystem>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
             <Header />
             {children}
             <Toaster />
@@ -29,6 +29,5 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
-
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -9,40 +9,40 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
-import { AiOutlinePlus } from "react-icons/ai"
-import { useState } from "react"
-import { useMutation } from "react-query"
-import { CreateCategoryPayload } from "@/lib/validators/category"
-import axios, { AxiosError } from "axios"
-import LoadingSpinner from "./LoadingSpinner"
-import { toast } from "@/hooks/use-toast"
-import { useRouter } from "next/navigation"
+} from '@/components/ui/dialog'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
+import { AiOutlinePlus } from 'react-icons/ai'
+import { useState } from 'react'
+import { useMutation } from 'react-query'
+import { CreateCategoryPayload } from '@/lib/validators/category'
+import axios, { AxiosError } from 'axios'
+import LoadingSpinner from './LoadingSpinner'
+import { toast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
 export function CreateCategory() {
   const [categoryName, setCategoryName] = useState('')
 
   const router = useRouter()
 
-  const {mutate: createCategory, isLoading} = useMutation({
+  const { mutate: createCategory, isLoading } = useMutation({
     mutationFn: async () => {
       const payload: CreateCategoryPayload = {
         name: categoryName,
       }
 
-      const {data} = await axios.post('/api/category', payload)
+      const { data } = await axios.post('/api/category', payload)
 
       return data as string
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 409) {
-            toast({
+          toast({
             title: 'Category already exists',
             description: 'Choose a different category name.',
-            variant: 'destructive'
+            variant: 'destructive',
           })
         }
 
@@ -50,7 +50,7 @@ export function CreateCategory() {
           toast({
             title: 'Invalid category name',
             description: 'Choose a name between 3 and 21 characters',
-            variant: 'destructive'
+            variant: 'destructive',
           })
         }
 
@@ -58,37 +58,34 @@ export function CreateCategory() {
           toast({
             title: 'Unauthorized',
             description: 'You have to be logged in to create a category',
-            variant: 'destructive'
+            variant: 'destructive',
           })
         }
-
       } else {
         toast({
           title: 'Error',
           description: 'There was an error on creating your caregory',
-          variant: 'destructive'
+          variant: 'destructive',
         })
       }
-      
     },
-    onSuccess: (data) =>{
+    onSuccess: (data) => {
       router.push(`/category/${data}`)
-    }
+    },
   })
-
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className='flex border items-center gap-2 hover:bg-secondary/10'>
-            <AiOutlinePlus className='fill-secondary' />
-            <p>New category</p>
+        <Button className="flex items-center gap-2 border hover:bg-secondary/10">
+          <AiOutlinePlus className="fill-secondary" />
+          <p>New category</p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-primary text-secondary">
+      <DialogContent className="bg-primary text-secondary sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>New category</DialogTitle>
-          <DialogDescription className='text-tertiary'>
+          <DialogDescription className="text-tertiary">
             Create a new category for your tasks
           </DialogDescription>
         </DialogHeader>
@@ -97,11 +94,21 @@ export function CreateCategory() {
             <Label htmlFor="name" className="text-right">
               Name
             </Label>
-            <Input id="name" placeholder="Category name" className="col-span-3 bg-primary" onChange={(e) => setCategoryName(e.target.value)} />
+            <Input
+              id="name"
+              placeholder="Category name"
+              className="col-span-3 bg-primary"
+              onChange={(e) => setCategoryName(e.target.value)}
+            />
           </div>
         </div>
         <DialogFooter>
-          <Button className="flex items-center gap-2"  variant={'secondary'} disabled={categoryName.length === 0} onClick={() => createCategory()} >
+          <Button
+            className="flex items-center gap-2"
+            variant={'secondary'}
+            disabled={categoryName.length === 0}
+            onClick={() => createCategory()}
+          >
             {isLoading && <LoadingSpinner />}
             <p>Save changes</p>
           </Button>

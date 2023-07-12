@@ -1,10 +1,10 @@
 // lib/auth/index.ts
-import GoogleProvider from 'next-auth/providers/google';
-import { eq } from 'drizzle-orm';
-import { DrizzleAdapter } from './drizzle-adapter';
-import { db } from '@/db';
-import { users} from '../db/schema';
-import { getServerSession, type NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google'
+import { eq } from 'drizzle-orm'
+import { DrizzleAdapter } from './drizzle-adapter'
+import { db } from '@/db'
+import { users } from '../db/schema'
+import { getServerSession, type NextAuthOptions } from 'next-auth'
 
 export const authOptions: NextAuthOptions = {
   adapter: DrizzleAdapter(db),
@@ -24,26 +24,26 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ token, session }) {
       if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
+        session.user.id = token.id
+        session.user.name = token.name
+        session.user.email = token.email
+        session.user.image = token.picture
       }
 
-      return session;
+      return session
     },
     async jwt({ token, user }) {
       const [dbUser] = await db
         .select()
         .from(users)
         .where(eq(users.email, token.email || ''))
-        .limit(1);
+        .limit(1)
 
       if (!dbUser) {
         if (user) {
-          token.id = user?.id;
+          token.id = user?.id
         }
-        return token;
+        return token
       }
 
       return {
@@ -51,19 +51,17 @@ export const authOptions: NextAuthOptions = {
         name: dbUser.name,
         email: dbUser.email,
         picture: dbUser.image,
-      };
-
-      
+      }
     },
 
-    redirect(){
-        return '/';
-    }
+    redirect() {
+      return '/'
+    },
   },
-};
+}
 
-export const getAuthSession = () =>{
-    const auth = getServerSession(authOptions);
+export const getAuthSession = () => {
+  const auth = getServerSession(authOptions)
 
-    return auth
+  return auth
 }
