@@ -1,9 +1,9 @@
 import React from 'react'
-import UserAccountNav from './UserAccountNav'
+import UserAccountNav from '../User/UserAccountNav'
 import { getAuthSession } from '@/lib/auth'
 import Link from 'next/link'
 import Logo from './Logo'
-import { ThemeToggle } from './theme-toggle'
+import { ThemeToggle } from '../Theme/theme-toggle'
 
 const Header = async () => {
   const session = await getAuthSession()

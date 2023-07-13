@@ -17,7 +17,7 @@ import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { CreateCategoryPayload } from '@/lib/validators/category'
 import axios, { AxiosError } from 'axios'
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from './Loading/LoadingSpinner'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 
