@@ -47,7 +47,7 @@ const Editor = () => {
     if (editor?.getHTML()) {
       setText(editor?.getHTML())
     }
-  }, [editor, editor?.getHTML()])
+  }, [editor, editor?.getHTML])
 
   useEffect(() => {
     console.log(text)
