@@ -1,6 +1,5 @@
 'use client'
 
-import { initialEditorContent } from '@/lib/initialEditorContent'
 import {
   useEditor,
   EditorContent,
@@ -18,6 +17,18 @@ import BubbleButton from './BubbleButton'
 import FloatingMenuButton from './FloatingMenuButton'
 import { useState, useEffect } from 'react'
 import Placeholder from '@tiptap/extension-placeholder'
+import { lowlight } from 'lowlight'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
+import 'highlight.js/styles/tokyo-night-dark.css'
+
+lowlight.registerLanguage('html', html)
+lowlight.registerLanguage('css', css)
+lowlight.registerLanguage('js', js)
+lowlight.registerLanguage('ts', ts)
 
 const Editor = () => {
   const editor = useEditor({
@@ -29,11 +40,16 @@ const Editor = () => {
             return 'What’s the title?'
           }
 
-          return 'Can you add some further context?'
+          return 'Write your task here. Press "/" for commands'
         },
+        emptyNodeClass:
+          'first:before:text-tertiary first:before:float-left first:before:content-[attr(data-placeholder)] first:before:pointer-events-none',
+      }),
+      CodeBlockLowlight.configure({
+        lowlight,
       }),
     ],
-    content: initialEditorContent,
+    content: ``,
     editorProps: {
       attributes: {
         class: 'outline-none',
@@ -47,7 +63,7 @@ const Editor = () => {
     if (editor?.getHTML()) {
       setText(editor?.getHTML())
     }
-  }, [editor, editor?.getHTML])
+  }, [editor, editor?.getHTML()])
 
   useEffect(() => {
     console.log(text)
@@ -56,7 +72,7 @@ const Editor = () => {
   return (
     <>
       <EditorContent
-        className="prose prose-sky mx-auto max-w-[700px] py-24 text-tertiary placeholder:text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-secondary"
+        className="prose prose-sky mx-auto max-w-[700px] py-24 text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-primary prose-pre:bg-secondary prose-code:dark:text-secondary prose-pre:dark:bg-zinc-700"
         editor={editor}
         data-placeholder
       />
@@ -73,34 +89,40 @@ const Editor = () => {
           className="flex max-h-[700px] flex-col gap-4 overflow-y-scroll rounded bg-secondary px-1 pb-24 pt-2"
         >
           <FloatingMenuButton
-            onClick={() => editor.chain().focus().setParagraph().run()}
+            onClick={() => {
+              editor.chain().focus().undo().run()
+              editor.chain().focus().setParagraph().run()
+            }}
             data-active={editor.isActive('paragraph')}
             src={'https://www.notion.so/images/blocks/text/en-US.png'}
             title="Text"
             description="Just start writing with plain text"
           />
           <FloatingMenuButton
-            onClick={() =>
+            onClick={() => {
+              editor.chain().focus().undo().run()
               editor.chain().focus().toggleHeading({ level: 1 }).run()
-            }
+            }}
             data-active={editor.isActive('heading', { level: 1 })}
             src="https://www.notion.so/images/blocks/header.57a7576a.png"
             title="Heading 1"
             description="Big section heading"
           />
           <FloatingMenuButton
-            onClick={() =>
+            onClick={() => {
+              editor.chain().focus().undo().run()
               editor.chain().focus().toggleHeading({ level: 2 }).run()
-            }
+            }}
             data-active={editor.isActive('heading', { level: 2 })}
             src="https://www.notion.so/images/blocks/subheader.9aab4769.png"
             title="Heading 2"
             description="Medium section heading"
           />
           <FloatingMenuButton
-            onClick={() =>
+            onClick={() => {
+              editor.chain().focus().undo().run()
               editor.chain().focus().toggleHeading({ level: 3 }).run()
-            }
+            }}
             data-active={editor.isActive('heading', { level: 3 })}
             src="https://www.notion.so/images/blocks/subsubheader.d0ed0bb3.png"
             title="Heading 3"
@@ -108,7 +130,10 @@ const Editor = () => {
           />
 
           <FloatingMenuButton
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
+            onClick={() => {
+              editor.chain().focus().undo().run()
+              editor.chain().focus().toggleBulletList().run()
+            }}
             data-active={editor.isActive('bulletList')}
             src="https://www.notion.so/images/blocks/bulleted-list.0e87e917.png"
             title="Bulleted list"
@@ -116,15 +141,21 @@ const Editor = () => {
           />
 
           <FloatingMenuButton
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            data-active={editor.isActive('orderList')}
+            onClick={() => {
+              editor.chain().focus().undo().run()
+              editor.chain().focus().toggleOrderedList().run()
+            }}
+            data-active={editor.isActive('orderedList')}
             src="https://www.notion.so/images/blocks/numbered-list.0406affe.png"
             title="Ordered list"
             description="Create a simple ordered list"
           />
 
           <FloatingMenuButton
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
+            onClick={() => {
+              editor.chain().focus().undo().run()
+              editor.chain().focus().toggleBlockquote().run()
+            }}
             data-active={editor.isActive('blockquote')}
             src="https://www.notion.so/images/blocks/quote/en-US.png"
             title="Block quote"
@@ -132,15 +163,21 @@ const Editor = () => {
           />
 
           <FloatingMenuButton
-            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            data-active={editor.isActive('codeblock')}
+            onClick={() => {
+              editor.chain().focus().undo().run()
+              editor.chain().focus().toggleCodeBlock().run()
+            }}
+            data-active={editor.isActive('codeBlock')}
             src="https://www.notion.so/images/blocks/code.a8b201f4.png"
             title="Code block"
             description="Capture a code snippet"
           />
 
           <FloatingMenuButton
-            onClick={() => editor.chain().focus().setHorizontalRule().run()}
+            onClick={() => {
+              editor.chain().focus().undo().run()
+              editor.chain().focus().setHorizontalRule().run()
+            }}
             src="https://www.notion.so/images/blocks/divider.210d0faf.png"
             title="Divider"
             description="Add a divider into the text"
