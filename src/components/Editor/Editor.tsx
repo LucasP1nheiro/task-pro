@@ -24,6 +24,7 @@ import js from 'highlight.js/lib/languages/javascript'
 import ts from 'highlight.js/lib/languages/typescript'
 import html from 'highlight.js/lib/languages/xml'
 import 'highlight.js/styles/tokyo-night-dark.css'
+import { useTaskStore } from '@/store/tasks'
 
 lowlight.registerLanguage('html', html)
 lowlight.registerLanguage('css', css)
@@ -58,21 +59,18 @@ const Editor = () => {
   })
 
   const [text, setText] = useState<string>('')
+  const { updateDescription } = useTaskStore()
 
   useEffect(() => {
     if (editor?.getHTML()) {
-      setText(editor?.getHTML())
+      updateDescription(editor?.getHTML())
     }
-  }, [editor, editor?.getHTML()])
-
-  useEffect(() => {
-    console.log(text)
-  }, [text])
+  }, [editor, editor?.getHTML(), updateDescription])
 
   return (
     <>
       <EditorContent
-        className="prose prose-sky mx-auto max-w-[700px] py-24 text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-primary prose-pre:bg-secondary prose-code:dark:text-secondary prose-pre:dark:bg-zinc-700"
+        className="prose prose-sky mx-auto text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-primary prose-pre:bg-secondary prose-code:dark:text-secondary prose-pre:dark:bg-zinc-700"
         editor={editor}
         data-placeholder
       />

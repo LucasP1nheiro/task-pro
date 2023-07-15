@@ -1,5 +1,5 @@
-import AuthenticatedHome from '@/components/AuthenticatedHome'
-import LandingPage from '@/components/LandingPage'
+import AuthenticatedHome from '@/components/Home/AuthenticatedHome'
+import LandingPage from '@/components/Home/LandingPage'
 import { getAuthSession } from '@/lib/auth'
 
 export default async function Home() {

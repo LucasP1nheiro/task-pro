@@ -64,7 +64,7 @@ export function CreateCategory() {
       } else {
         toast({
           title: 'Error',
-          description: 'There was an error on creating your caregory',
+          description: 'There was an error on creating your category',
           variant: 'destructive',
         })
       }

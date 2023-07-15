@@ -113,17 +113,18 @@ export const categoryRelations = relations(category, ({ many, one }) => ({
 
 export const task = mysqlTable('task', {
   id: serial('id').primaryKey().autoincrement().notNull(),
-  title: varchar('title', { length: 100 }).notNull(),
+  title: varchar('title', { length: 21 }).notNull(),
   description: text('description'),
   priority: text('priority').$type<'low' | 'medium' | 'high'>(),
   status: text('status').$type<'todo' | 'doing' | 'done'>(),
   createdAt: timestamp('created_at').defaultNow(),
   expiresAt: timestamp('expires_at'),
-  userId: int('userId').notNull(),
+  userId: varchar('userId', { length: 191 }).notNull(),
   categoryId: int('categoryId').notNull(),
 })
 
 export type Task = InferModel<typeof task>
+export type NewTask = InferModel<typeof task, 'insert'>
 
 export const taskRelations = relations(task, ({ one }) => ({
   user: one(users, { fields: [task.userId], references: [users.id] }),
