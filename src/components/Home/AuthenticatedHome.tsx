@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '../ui/button'
+import TasksCard from '../Card/TasksCard'
+import CalendarTasks from '../Calendar/CalendarTasks'
 
 const AuthenticatedHome = async () => {
   const session = await getAuthSession()
@@ -17,19 +19,20 @@ const AuthenticatedHome = async () => {
     .select()
     .from(task)
     .where(sql`${task.userId}= ${session?.user.id}`)
+    .orderBy(task.expiresAt)
 
   return (
-    <main className="mt-24 flex min-h-screen w-screen flex-col items-center space-y-24 p-4">
+    <main className="my-24 flex min-h-screen w-screen flex-col items-center space-y-24 p-4">
       <div className="flex w-4/5 flex-col justify-between gap-4 lg:flex-row lg:items-start">
         <DateTime />
-        <div className="flex flex-col items-center justify-center gap-8">
+        <div className="flex  w-auto items-center justify-end gap-4">
           <CreateCategory />
           <Link
             href="/create-task"
             className={cn(
               buttonVariants({
                 className:
-                  'flex w-full items-center gap-2 border hover:bg-secondary/10',
+                  'flex w-[200px] items-center gap-2 border hover:bg-secondary/10',
               }),
             )}
           >
@@ -39,11 +42,17 @@ const AuthenticatedHome = async () => {
         </div>
       </div>
 
+      <CalendarTasks tasks={tasks} />
+
       <div className="grid w-4/5 grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {tasks.map((task) => (
-          <h1 key={task.id} className="text-secondary">
-            {task.title}
-          </h1>
+          <TasksCard
+            key={task.id}
+            taskId={task.id}
+            title={task.title}
+            expiresAt={task.expiresAt}
+            priority={task.priority}
+          />
         ))}
       </div>
     </main>
