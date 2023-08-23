@@ -18,17 +18,24 @@ interface SelectCategoryProps {
     name: string
     categoryId: number
   }[]
+  currentCategoryId?: number | null
 }
 
-const SelectCategory = ({ label, categoryItems }: SelectCategoryProps) => {
-  const [currentCategory, setCurrentCategory] = useState<string | null>(null)
+const SelectCategory = ({
+  label,
+  categoryItems,
+  currentCategoryId,
+}: SelectCategoryProps) => {
+  const [currentSelected, setCurrentSelected] = useState<string | undefined>(
+    undefined,
+  )
   const { updateCategoryId } = useTaskStore()
 
   useEffect(() => {
-    if (currentCategory) {
+    if (currentSelected) {
       const newCategory = categoryItems.filter((item) => {
         let aux: number | null = null
-        if (item.name === currentCategory) {
+        if (item.name === currentSelected) {
           aux = item.categoryId
         }
 
@@ -37,10 +44,24 @@ const SelectCategory = ({ label, categoryItems }: SelectCategoryProps) => {
 
       updateCategoryId(newCategory[0].categoryId)
     }
-  }, [currentCategory, categoryItems, updateCategoryId])
+  }, [currentSelected, categoryItems, updateCategoryId])
+
+  const currentCategory =
+    categoryItems.find((category) => {
+      return category.categoryId === currentCategoryId
+    }) ?? undefined
+
+  // const currentCategoryName = currentCategory?.name ?? null
+
+  useEffect(() => {
+    setCurrentSelected(currentCategory?.name)
+  }, [currentCategory])
 
   return (
-    <Select onValueChange={(value: string) => setCurrentCategory(value)}>
+    <Select
+      onValueChange={(value: string) => setCurrentSelected(value)}
+      value={currentSelected ?? undefined}
+    >
       <SelectTrigger className="w-[180px] text-secondary">
         <SelectValue
           placeholder={`Select the ${label}`}

@@ -31,7 +31,11 @@ lowlight.registerLanguage('css', css)
 lowlight.registerLanguage('js', js)
 lowlight.registerLanguage('ts', ts)
 
-const Editor = () => {
+interface EditorProps {
+  initialContent?: string | null
+}
+
+const Editor = ({ initialContent }: EditorProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -50,7 +54,7 @@ const Editor = () => {
         lowlight,
       }),
     ],
-    content: ``,
+    content: initialContent ?? ``,
     editorProps: {
       attributes: {
         class: 'outline-none',
@@ -58,7 +62,6 @@ const Editor = () => {
     },
   })
 
-  const [text, setText] = useState<string>('')
   const { updateDescription } = useTaskStore()
 
   useEffect(() => {
@@ -70,7 +73,7 @@ const Editor = () => {
   return (
     <>
       <EditorContent
-        className="prose prose-sky mx-auto text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-primary prose-pre:bg-secondary prose-code:dark:text-secondary prose-pre:dark:bg-zinc-700"
+        className="prose-code prose prose-sky mx-auto text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-secondary prose-pre:bg-zinc-200 prose-code:dark:text-secondary prose-pre:dark:bg-zinc-700"
         editor={editor}
         data-placeholder
       />

@@ -1,12 +1,24 @@
 'use client'
 
 import { Input } from '../ui/input'
-import React from 'react'
 
 import { useTaskStore } from '@/store/tasks'
+import { useEffect } from 'react'
 
-const InputComponent = () => {
-  const { updateTitle } = useTaskStore()
+interface InputComponentProps {
+  currentTitle?: string
+}
+
+const InputComponent = ({ currentTitle }: InputComponentProps) => {
+  const { updateTitle, title } = useTaskStore()
+
+  useEffect(() => {
+    if (currentTitle) {
+      updateTitle(currentTitle)
+    } else {
+      updateTitle('')
+    }
+  }, [currentTitle, updateTitle])
 
   return (
     <Input
@@ -14,6 +26,7 @@ const InputComponent = () => {
       className="col-span-3 bg-primary text-xs text-secondary placeholder:text-tertiary"
       placeholder="Enter the title of the task here"
       onChange={(e) => updateTitle(e.target.value)}
+      value={title}
     />
   )
 }

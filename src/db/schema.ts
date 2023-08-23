@@ -1,4 +1,4 @@
-import { InferModel, relations, eq } from 'drizzle-orm'
+import { InferModel, relations } from 'drizzle-orm'
 import {
   serial,
   text,
@@ -116,7 +116,7 @@ export const task = mysqlTable('task', {
   title: varchar('title', { length: 21 }).notNull(),
   description: text('description'),
   priority: text('priority').$type<'low' | 'medium' | 'high'>(),
-  status: text('status').$type<'todo' | 'doing' | 'done'>(),
+  status: text('status').$type<'todo' | 'in progress' | 'completed'>(),
   createdAt: timestamp('created_at').defaultNow(),
   expiresAt: timestamp('expires_at'),
   userId: varchar('userId', { length: 191 }).notNull(),

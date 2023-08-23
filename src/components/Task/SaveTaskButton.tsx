@@ -4,18 +4,26 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { toast } from '@/hooks/use-toast'
 import axios, { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { useMutation } from 'react-query'
 import LoadingSpinner from '../Loading/LoadingSpinner'
 import { useTaskStore } from '@/store/tasks'
-import { CreateTaskPayload } from '@/lib/validators/task'
+import { CreateTaskPayload, UpdateTaskPayload } from '@/lib/validators/task'
 
 const SaveTaskButton = () => {
+  const pathName = usePathname()
+
   const router = useRouter()
 
-  const { categoryId, description, title, priority, expiresAt } = useTaskStore()
+  const { id } = useParams()
 
-  const { mutate: createTask, isLoading } = useMutation({
+  const taskId = parseInt(id)
+
+  const { categoryId, description, title, priority, expiresAt, status } =
+    useTaskStore()
+
+  // creating a new task
+  const { mutate: createTask, isLoading: isCreateLoading } = useMutation({
     mutationFn: async () => {
       const payload: CreateTaskPayload = {
         categoryId,
@@ -65,10 +73,61 @@ const SaveTaskButton = () => {
     },
   })
 
+  // updating existing task
+  const { mutate: updateTask, isLoading: isUpdateLoading } = useMutation({
+    mutationFn: async () => {
+      const payload: UpdateTaskPayload = {
+        title,
+        categoryId,
+        taskId,
+        description,
+        priority,
+        expiresAt,
+        status,
+      }
+
+      await axios.patch('/api/task', payload)
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 422) {
+          toast({
+            title: 'Invalid task name',
+            description: `${err.message}`,
+            variant: 'destructive',
+          })
+        }
+
+        if (err.response?.status === 401) {
+          toast({
+            title: 'Unauthorized',
+            description: 'You have to be logged in to update a task',
+            variant: 'destructive',
+          })
+        }
+      }
+    },
+    onSuccess: () => {
+      toast({
+        title: 'Congratulations!',
+        description: `Your task has been updated successfully`,
+        variant: 'default',
+      })
+      router.push('/')
+    },
+  })
+
   return (
-    <Button type="submit" variant={'secondary'} onClick={() => createTask()}>
-      {isLoading && <LoadingSpinner />}
-      Save
+    <Button
+      type="submit"
+      variant={'secondary'}
+      onClick={() =>
+        pathName === '/create-task' ? createTask() : updateTask()
+      }
+      className="flex items-center gap-4"
+    >
+      {(isCreateLoading || isUpdateLoading) && <LoadingSpinner />}
+      <p>{pathName === '/create-task' ? 'Create' : 'Update'}</p>
     </Button>
   )
 }

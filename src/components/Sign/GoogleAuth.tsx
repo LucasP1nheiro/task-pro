@@ -1,11 +1,11 @@
 'use client'
 
-import { FC, useState } from 'react'
-import { Button } from './ui/button'
+import { useState } from 'react'
+import { Button } from '../ui/button'
 import { AiOutlineGoogle } from 'react-icons/ai'
 import { signIn } from 'next-auth/react'
 import { useToast } from '@/hooks/use-toast'
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from '../Loading/LoadingSpinner'
 
 const GoogleAuth = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -28,7 +28,7 @@ const GoogleAuth = () => {
 
   return (
     <Button
-      className="flex items-center justify-center gap-4 rounded-md border duration-300 hover:bg-white/10"
+      className="flex w-full items-center justify-center gap-4 rounded-md border duration-300 hover:bg-white/10"
       onClick={loginWithGoogle}
     >
       {isLoading && <LoadingSpinner />}

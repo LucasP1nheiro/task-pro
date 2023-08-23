@@ -3,46 +3,44 @@
 import { useTaskStore } from '@/store/tasks'
 import {
   Select,
-  SelectTrigger,
   SelectValue,
   SelectContent,
   SelectGroup,
   SelectLabel,
   SelectItem,
+  SelectTrigger,
 } from '../ui/select'
 import React, { useEffect, useState } from 'react'
 
-interface SelectPriorityProps {
+interface SelectStatusProps {
   label: string
-  priorityItems: string[]
-  currentPriority?: 'low' | 'high' | 'medium' | null | undefined
+  currentStatus?: 'todo' | 'in progress' | 'completed' | null
 }
 
-const SelectPriority = ({
-  label,
-  priorityItems,
-  currentPriority,
-}: SelectPriorityProps) => {
-  const { updatePriority } = useTaskStore()
+const SelectStatus = ({ label, currentStatus }: SelectStatusProps) => {
+  const statusItems = ['todo', 'in progress', 'completed']
 
   const [value, setValue] = useState<string | undefined>(undefined)
 
+  const { updateStatus } = useTaskStore()
+
   useEffect(() => {
-    if (currentPriority) {
-      setValue(currentPriority)
-      updatePriority(currentPriority)
+    if (currentStatus) {
+      setValue(currentStatus)
+    } else {
+      setValue(undefined)
     }
-  }, [currentPriority, updatePriority])
+  }, [currentStatus])
   return (
     <Select
       onValueChange={(newValue: string) => {
         if (
-          newValue === 'low' ||
-          newValue === 'high' ||
-          newValue === 'medium'
+          newValue === 'todo' ||
+          newValue === 'in progress' ||
+          newValue === 'completed'
         ) {
           setValue(newValue)
-          updatePriority(newValue)
+          updateStatus(newValue)
         }
       }}
       value={value}
@@ -56,10 +54,10 @@ const SelectPriority = ({
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Select the {label}</SelectLabel>
-          {priorityItems &&
-            priorityItems.map(
+          {statusItems &&
+            statusItems.map(
               (item) =>
-                (item === 'low' || item === 'medium' || item === 'high') && (
+                item && (
                   <SelectItem value={item} key={item}>
                     {item}
                   </SelectItem>
@@ -71,4 +69,4 @@ const SelectPriority = ({
   )
 }
 
-export default SelectPriority
+export default SelectStatus

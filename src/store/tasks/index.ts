@@ -14,7 +14,7 @@ type Actions = {
 
 export const useTaskStore = create<State & Actions>((set) => ({
   title: '',
-  userId: 0,
+  userId: '',
   categoryId: 0,
   updateTitle: (title) => set(() => ({ title })),
   updateDescription: (description) => set(() => ({ description })),

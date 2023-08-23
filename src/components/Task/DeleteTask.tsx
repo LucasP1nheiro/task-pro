@@ -30,13 +30,13 @@ const DeleteTask = ({ taskId }: DeleteTaskProps) => {
   const router = useRouter()
   const { mutate: deleteTask, isLoading } = useMutation({
     mutationFn: async () => {
-      const payload = {
-        taskId,
+      try {
+        const { data } = await axios.delete(`/api/task/?taskId=${taskId}`)
+        console.log(`Deleted task with title: ${data}`)
+        return data as string
+      } catch (error) {
+        console.error('Error deleting task:', error)
       }
-
-      const { data } = await axios.post('/api/task/delete', payload)
-
-      return data as string
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
@@ -56,11 +56,6 @@ const DeleteTask = ({ taskId }: DeleteTaskProps) => {
           })
         }
       }
-      // toast({
-      //   title: 'Error',
-      //   description: 'There was an error on deleting your task',
-      //   variant: 'destructive',
-      // })
     },
     onSuccess: (data) => {
       toast({
@@ -68,7 +63,6 @@ const DeleteTask = ({ taskId }: DeleteTaskProps) => {
         description: `The task ${data} has been deleted successfully`,
         variant: 'default',
       })
-      console.log('success')
       router.push('/')
     },
   })

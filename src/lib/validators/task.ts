@@ -8,6 +8,14 @@ const PriorityEnum = z.union([
   z.literal(undefined),
 ])
 
+const StatusEnum = z.union([
+  z.literal('todo'),
+  z.literal('in progress'),
+  z.literal('completed'),
+  z.literal(null),
+  z.literal(undefined),
+])
+
 const DescriptionEnum = z.union([
   z.string(),
   z.literal(null),
@@ -28,12 +36,25 @@ const ExpiresAtEnum = z.union([
   z.literal(undefined),
 ])
 
-export const TaskValidator = z.object({
+export const CreateTaskValidator = z.object({
   title: z.string().min(3).max(21),
   description: DescriptionEnum.optional().nullable(),
   categoryId: z.number(),
   priority: PriorityEnum.optional().nullable(),
   expiresAt: ExpiresAtEnum.optional().nullable(),
+  status: StatusEnum.optional().nullable(),
 })
 
-export type CreateTaskPayload = z.infer<typeof TaskValidator>
+export type CreateTaskPayload = z.infer<typeof CreateTaskValidator>
+
+export const UpdateTaskValidator = z.object({
+  title: z.string().min(3).max(21),
+  description: DescriptionEnum.optional().nullable(),
+  categoryId: z.number(),
+  priority: PriorityEnum.optional().nullable(),
+  expiresAt: ExpiresAtEnum.optional().nullable(),
+  status: StatusEnum.optional().nullable(),
+  taskId: z.number(),
+})
+
+export type UpdateTaskPayload = z.infer<typeof UpdateTaskValidator>

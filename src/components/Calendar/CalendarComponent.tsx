@@ -5,17 +5,24 @@ import { Calendar } from '../ui/calendar'
 import { format } from 'date-fns'
 import { useTaskStore } from '@/store/tasks'
 
-const CalendarComponent = () => {
-  const [date, setDate] = useState<Date>(new Date())
+interface CalendarComponentProps {
+  currentDate?: Date | null | undefined
+}
 
-  const today = new Date()
+const CalendarComponent = ({ currentDate }: CalendarComponentProps) => {
+  const [date, setDate] = useState<Date>(new Date())
 
   const { updateExpiresAt } = useTaskStore()
 
   useEffect(() => {
-    console.log(date.toDateString())
     updateExpiresAt(date)
   }, [date, updateExpiresAt])
+
+  useEffect(() => {
+    if (currentDate) {
+      setDate(currentDate)
+    }
+  }, [currentDate])
 
   return (
     <div className="space-y-4">
@@ -29,7 +36,7 @@ const CalendarComponent = () => {
         }}
         className="items-center rounded-md border"
         defaultMonth={date}
-        disabled={{ before: today }}
+        required
       />
       <p className="text-center text-tertiary">
         You picked {format(date, 'PP')}.

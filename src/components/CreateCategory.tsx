@@ -77,7 +77,7 @@ export function CreateCategory() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex items-center gap-2 border hover:bg-secondary/10">
+        <Button className="flex w-[200px] items-center gap-2 border hover:bg-secondary/10">
           <AiOutlinePlus className="fill-secondary" />
           <p>New category</p>
         </Button>

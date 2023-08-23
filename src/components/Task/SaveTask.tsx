@@ -12,7 +12,7 @@ import {
 import { Label } from '@/components/ui/label'
 
 import { db } from '@/db'
-import { category } from '@/db/schema'
+import { Task, category } from '@/db/schema'
 import { getAuthSession } from '@/lib/auth'
 import { sql } from 'drizzle-orm'
 import CalendarComponent from '../Calendar/CalendarComponent'
@@ -20,8 +20,15 @@ import SelectCategory from '../Select/SelectCategory'
 import InputComponent from '../Input/InputComponent'
 import SelectPriority from '../Select/SelectPriority'
 import SaveTaskButton from './SaveTaskButton'
+import SelectStatus from '../Select/SelectStatus'
 
-const SaveTask = async () => {
+// it could receive a task data when the user is trying to update the task
+
+interface SaveTaskProps {
+  taskData?: Task
+}
+
+const SaveTask = async ({ taskData }: SaveTaskProps) => {
   const session = await getAuthSession()
 
   const categories = await db
@@ -35,7 +42,7 @@ const SaveTask = async () => {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant={'secondary'} size="sm" className="px-12">
-          <p className="text-xs">Save task</p>
+          <p className="text-xs">{taskData ? 'Update task' : 'Save task'}</p>
         </Button>
       </SheetTrigger>
       <SheetContent className="space-y-8 overflow-y-scroll bg-primary">
@@ -49,14 +56,26 @@ const SaveTask = async () => {
           <Label htmlFor="name" className="text-right text-secondary">
             Title
           </Label>
-          <InputComponent />
+          <InputComponent currentTitle={taskData?.title} />
         </div>
-        <CalendarComponent />
+        <CalendarComponent currentDate={taskData?.expiresAt} />
 
-        <SelectPriority label="priority" priorityItems={priority} />
+        <SelectPriority
+          label="priority"
+          priorityItems={priority}
+          currentPriority={taskData?.priority ?? null}
+        />
 
         {categories.length > 0 && (
-          <SelectCategory label="category" categoryItems={categories} />
+          <SelectCategory
+            label="category"
+            categoryItems={categories}
+            currentCategoryId={taskData ? taskData.categoryId : null}
+          />
+        )}
+
+        {taskData && (
+          <SelectStatus label="status" currentStatus={taskData.status} />
         )}
 
         <SheetFooter>
