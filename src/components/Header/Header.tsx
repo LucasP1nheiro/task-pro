@@ -9,7 +9,7 @@ const Header = async () => {
   const session = await getAuthSession()
 
   return (
-    <div className="fixed top-0 z-50 flex h-[10%] w-screen items-center justify-around border-b bg-primary">
+    <header className="fixed top-0 z-50 flex h-[10%] w-screen items-center justify-around border-b bg-primary">
       <Logo hasText />
 
       <div className="flex items-center gap-4">
@@ -26,7 +26,7 @@ const Header = async () => {
           </Link>
         )}
       </div>
-    </div>
+    </header>
   )
 }
 
