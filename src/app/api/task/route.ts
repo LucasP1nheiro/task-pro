@@ -59,6 +59,8 @@ export async function PATCH(req: Request) {
 
     const body = await req.json()
 
+    console.log(body)
+
     const {
       title,
       categoryId,
@@ -68,6 +70,10 @@ export async function PATCH(req: Request) {
       expiresAt,
       status,
     } = UpdateTaskValidator.parse(body)
+
+    console.log('validou', {
+      body,
+    })
 
     await db
       .update(task)

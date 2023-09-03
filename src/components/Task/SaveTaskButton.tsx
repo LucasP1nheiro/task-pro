@@ -86,14 +86,16 @@ const SaveTaskButton = () => {
         status,
       }
 
+      console.log(payload)
       await axios.patch('/api/task', payload)
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 422) {
           toast({
-            title: 'Invalid task name',
-            description: `${err.message}`,
+            title: 'Task expired',
+            description:
+              'The expiration date of this task has already come up.',
             variant: 'destructive',
           })
         }
