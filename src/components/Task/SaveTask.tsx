@@ -22,6 +22,8 @@ import SelectPriority from '../Select/SelectPriority'
 import SaveTaskButton from './SaveTaskButton'
 import SelectStatus from '../Select/SelectStatus'
 
+import { AiOutlineUpload } from 'react-icons/ai'
+
 // it could receive a task data when the user is trying to update the task
 
 interface SaveTaskProps {
@@ -41,19 +43,24 @@ const SaveTask = async ({ taskData }: SaveTaskProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant={'secondary'} size="sm" className="px-12">
-          <p className="text-xs">{taskData ? 'Update task' : 'Save task'}</p>
+        <Button
+          variant={'secondary'}
+          size="sm"
+          className="flex items-center gap-2 px-12"
+        >
+          <AiOutlineUpload size={20} className="fill-primary" />
+          <p className="text-md">{taskData ? 'Update task' : 'Save task'}</p>
         </Button>
       </SheetTrigger>
-      <SheetContent className="space-y-8 overflow-y-scroll bg-primary">
+      <SheetContent className="w-full space-y-8 overflow-y-scroll bg-primary">
         <SheetHeader>
-          <SheetTitle className="text-secondary">Save task</SheetTitle>
-          <SheetDescription className="text-tertiary">
+          <SheetTitle className="text-2xl text-secondary">Save task</SheetTitle>
+          <SheetDescription className="text-md text-tertiary">
             Save your task here. Click save when you&apos;re done.
           </SheetDescription>
         </SheetHeader>
         <div className="flex w-full items-center justify-between gap-8">
-          <Label htmlFor="name" className="text-right text-secondary">
+          <Label htmlFor="name" className="text-md text-right text-secondary">
             Title
           </Label>
           <InputComponent currentTitle={taskData?.title} />

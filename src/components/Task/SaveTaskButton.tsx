@@ -86,16 +86,14 @@ const SaveTaskButton = () => {
         status,
       }
 
-      console.log(payload)
       await axios.patch('/api/task', payload)
     },
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err.response?.status === 422) {
           toast({
-            title: 'Task expired',
-            description:
-              'The expiration date of this task has already come up.',
+            title: 'Error',
+            description: 'Something went wrong with the update',
             variant: 'destructive',
           })
         }
@@ -126,7 +124,7 @@ const SaveTaskButton = () => {
       onClick={() =>
         pathName === '/create-task' ? createTask() : updateTask()
       }
-      className="flex items-center gap-4"
+      className="flex w-full items-center gap-4"
     >
       {(isCreateLoading || isUpdateLoading) && <LoadingSpinner />}
       <p>{pathName === '/create-task' ? 'Create' : 'Update'}</p>

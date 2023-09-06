@@ -36,7 +36,7 @@ const GoogleAuth = () => {
       {!isLoading && (
         <>
           <AiOutlineGoogle className="fill-black dark:fill-white" size={24} />
-          <h1 className="text-md text-secondary">Login with google</h1>
+          <h1 className="text-lg text-secondary">Login with google</h1>
         </>
       )}
     </Button>

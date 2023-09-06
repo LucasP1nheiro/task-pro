@@ -10,7 +10,8 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '../ui/button'
 import TasksCard from '../Card/TasksCard'
-import CalendarTasks from '../Calendar/CalendarTasks'
+import Board from '../Board/Board'
+import BoardContainer from '../Board/BoardContainer'
 
 const AuthenticatedHome = async () => {
   const session = await getAuthSession()
@@ -22,39 +23,73 @@ const AuthenticatedHome = async () => {
     .orderBy(task.expiresAt)
 
   return (
-    <main className="my-24 flex min-h-screen w-screen flex-col items-center space-y-24 p-4">
-      <div className="flex w-4/5 flex-col justify-between gap-4 lg:flex-row lg:items-start">
+    <main className="my-36 flex min-h-screen w-screen flex-col items-center justify-center space-y-24 p-4">
+      <div className="flex w-full flex-col justify-between gap-4 space-y-4 md:w-3/4 lg:flex-row lg:items-center">
         <DateTime />
-        <div className="flex  w-auto items-center justify-end gap-4">
+        <div className="flex w-auto flex-col items-center justify-end gap-4 lg:flex-row">
           <CreateCategory />
           <Link
             href="/create-task"
             className={cn(
               buttonVariants({
                 className:
-                  'flex w-[200px] items-center gap-2 border hover:bg-secondary/10',
+                  'flex w-full items-center gap-2 border lg:w-[200px] ',
+                variant: 'secondary',
               }),
             )}
           >
-            <AiOutlinePlus />
+            <AiOutlinePlus className="fill-primary" size={18} />
             <h1>New task</h1>
           </Link>
         </div>
       </div>
 
-      <CalendarTasks tasks={tasks} />
+      {/* <CalendarTasks tasks={tasks} /> */}
 
-      <div className="grid w-4/5 grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {tasks.map((task) => (
-          <TasksCard
-            key={task.id}
-            taskId={task.id}
-            title={task.title}
-            expiresAt={task.expiresAt}
-            priority={task.priority}
-          />
-        ))}
-      </div>
+      <Board>
+        <BoardContainer title="to do">
+          {tasks.map(
+            (task) =>
+              task.status === 'todo' && (
+                <TasksCard
+                  key={task.id}
+                  taskId={task.id}
+                  title={task.title}
+                  expiresAt={task.expiresAt}
+                  priority={task.priority}
+                />
+              ),
+          )}
+        </BoardContainer>
+        <BoardContainer title="in progress">
+          {tasks.map(
+            (task) =>
+              task.status === 'in progress' && (
+                <TasksCard
+                  key={task.id}
+                  taskId={task.id}
+                  title={task.title}
+                  expiresAt={task.expiresAt}
+                  priority={task.priority}
+                />
+              ),
+          )}
+        </BoardContainer>
+        <BoardContainer title="completed">
+          {tasks.map(
+            (task) =>
+              task.status === 'completed' && (
+                <TasksCard
+                  key={task.id}
+                  taskId={task.id}
+                  title={task.title}
+                  expiresAt={task.expiresAt}
+                  priority={task.priority}
+                />
+              ),
+          )}
+        </BoardContainer>
+      </Board>
     </main>
   )
 }

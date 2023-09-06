@@ -6,10 +6,10 @@ interface LogoProps {
 
 const Logo = ({ hasText }: LogoProps) => {
   return (
-    <Link href="/" className="flex items-center justify-center gap-2">
+    <Link href="/" className="flex items-end justify-center gap-2">
       <svg
-        width="24"
-        height="24"
+        width="36"
+        height="36"
         viewBox="0 0 44 43"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,11 @@ const Logo = ({ hasText }: LogoProps) => {
         />
       </svg>
 
-      {hasText && <h1 className="font-medium text-secondary">TaskPro</h1>}
+      {hasText && (
+        <h1 className="hidden text-2xl font-medium text-secondary md:block">
+          TaskPro
+        </h1>
+      )}
     </Link>
   )
 }

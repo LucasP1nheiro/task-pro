@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -20,6 +20,7 @@ import axios, { AxiosError } from 'axios'
 import LoadingSpinner from './Loading/LoadingSpinner'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 export function CreateCategory() {
   const [categoryName, setCategoryName] = useState('')
@@ -77,21 +78,28 @@ export function CreateCategory() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="flex w-[200px] items-center gap-2 border hover:bg-secondary/10">
-          <AiOutlinePlus className="fill-secondary" />
+        <Button
+          className={cn(
+            buttonVariants({
+              className: 'flex w-full items-center gap-2 border lg:w-[200px] ',
+              variant: 'secondary',
+            }),
+          )}
+        >
+          <AiOutlinePlus className="fill-primary" size={18} />
           <p>New category</p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-primary text-secondary sm:max-w-[425px]">
+      <DialogContent className="bg-primary text-secondary sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle>New category</DialogTitle>
-          <DialogDescription className="text-tertiary">
+          <DialogTitle className="text-xl">New category</DialogTitle>
+          <DialogDescription className="text-md text-tertiary">
             Create a new category for your tasks
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+            <Label htmlFor="name" className="text-right text-lg">
               Name
             </Label>
             <Input

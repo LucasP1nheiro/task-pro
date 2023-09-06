@@ -15,7 +15,7 @@ import {
 } from 'react-icons/rx'
 import BubbleButton from './BubbleButton'
 import FloatingMenuButton from './FloatingMenuButton'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Placeholder from '@tiptap/extension-placeholder'
 import { lowlight } from 'lowlight'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
@@ -57,7 +57,7 @@ const Editor = ({ initialContent }: EditorProps) => {
     content: initialContent ?? ``,
     editorProps: {
       attributes: {
-        class: 'outline-none',
+        class: 'outline-none text-xl',
       },
     },
   })
@@ -73,9 +73,10 @@ const Editor = ({ initialContent }: EditorProps) => {
   return (
     <>
       <EditorContent
-        className="prose-code prose prose-sky mx-auto text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-secondary prose-pre:bg-zinc-200 prose-code:dark:text-secondary prose-pre:dark:bg-zinc-700"
+        className="prose-code prose prose-sky max-w-none  text-tertiary prose-h1:text-secondary prose-h2:text-secondary prose-h3:text-secondary prose-blockquote:text-secondary prose-strong:text-secondary prose-code:text-secondary prose-pre:bg-zinc-200 prose-code:dark:text-secondary prose-pre:dark:bg-zinc-700"
         editor={editor}
         data-placeholder
+        spellCheck={false}
       />
       {editor && (
         <FloatingMenu

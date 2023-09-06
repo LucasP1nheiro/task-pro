@@ -7,13 +7,13 @@ import Footer from '../Footer/Footer'
 
 const LandingPage = () => {
   return (
-    <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-12 p-4 pt-24 text-center">
-      <h1 className="w-full text-2xl font-bold text-secondary md:text-4xl lg:w-1/2 xl:text-5xl">
+    <main className="flex min-h-screen w-screen flex-col items-center justify-center space-y-12 p-4 pt-48 text-center">
+      <h1 className="w-full text-2xl font-bold text-secondary md:text-4xl lg:w-1/2 xl:text-6xl">
         Management optimization for your tasks
       </h1>
-      <h2 className="text-sm text-tertiary md:text-lg">
-        Experience Effortless Task Management with TaskPro <br />
-        Intuitive Simplicity, All for Free!
+      <h2 className="text-sm text-tertiary md:text-xl">
+        Experience Effortless Task Management with TaskPro Intuitive Simplicity,
+        All for Free!
       </h2>
       <Link
         href="/sign-in"

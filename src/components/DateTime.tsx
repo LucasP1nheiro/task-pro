@@ -19,9 +19,9 @@ function DateTime() {
   }, [])
 
   return (
-    <div className="space-y-2">
-      <h1 className="text-2xl font-bold text-secondary">Today</h1>
-      <h1 className="text-tertiary">{currentDateTime}</h1>
+    <div className="space-y-4">
+      <h1 className="text-5xl font-bold text-secondary">Today</h1>
+      <h1 className="text-xl text-tertiary">{currentDateTime}</h1>
     </div>
   )
 }

@@ -23,7 +23,7 @@ const InputComponent = ({ currentTitle }: InputComponentProps) => {
   return (
     <Input
       id="name"
-      className="col-span-3 bg-primary text-xs text-secondary placeholder:text-tertiary"
+      className="col-span-3 bg-primary text-sm text-secondary placeholder:text-tertiary"
       placeholder="Enter the title of the task here"
       onChange={(e) => updateTitle(e.target.value)}
       value={title}

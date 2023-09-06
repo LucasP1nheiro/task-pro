@@ -21,6 +21,7 @@ import axios, { AxiosError } from 'axios'
 import { useMutation } from 'react-query'
 import LoadingSpinner from '../Loading/LoadingSpinner'
 import { useRouter } from 'next/navigation'
+import { BsTrash } from 'react-icons/bs'
 
 interface DeleteTaskProps {
   taskId: number
@@ -70,8 +71,13 @@ const DeleteTask = ({ taskId }: DeleteTaskProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant={'secondary'} size="sm" className="px-12">
-          <p className="text-xs">Delete task</p>
+        <Button
+          variant={'secondary'}
+          size="sm"
+          className="flex items-center gap-2 px-12"
+        >
+          <BsTrash size={18} className="fill-primary" />
+          <p className="text-sm">Delete task</p>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

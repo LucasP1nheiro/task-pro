@@ -26,12 +26,14 @@ const Page = async ({ params }: PageProps) => {
   return (
     <>
       {selectedTask && (
-        <main className="space-y-10 p-4 pt-24 ">
-          <div className="mx-auto flex w-full justify-end gap-4 lg:w-3/5">
+        <main className="min-h-screen w-screen space-y-10 p-4 pt-48">
+          <div className="mx-auto flex w-full flex-col justify-end gap-8 lg:w-3/4 lg:flex-row">
             <SaveTask taskData={selectedTask} />
             <DeleteTask taskId={selectedTask.id} />
           </div>
-          <Editor initialContent={selectedTask.description} />
+          <div className="mx-auto w-full md:w-3/4">
+            <Editor initialContent={selectedTask.description} />
+          </div>
         </main>
       )}
     </>

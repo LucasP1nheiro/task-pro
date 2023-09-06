@@ -25,16 +25,18 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <UserAvatar user={user} className="h-6 w-6" />
+        <UserAvatar user={user} className="h-8 w-8" />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="border bg-primary" align="end">
+      <DropdownMenuContent className=" border bg-primary" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && (
-              <p className="font-medium text-secondary">{user.name}</p>
+              <p className="font-medium capitalize text-secondary">
+                {user.name}
+              </p>
             )}
             {user.email && (
-              <p className="w-[200px] truncate text-sm text-tertiary">
+              <p className="w-[300px] truncate text-sm text-tertiary">
                 {user.email}
               </p>
             )}
@@ -43,10 +45,10 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
 
         <DropdownMenuSeparator className="bg-tertiary" />
 
-        <DropdownMenuItem asChild className="bg-primary hover:bg-red-500">
+        <DropdownMenuItem asChild className="bg-primary">
           <Link href="/" className="flex items-center gap-2">
-            <AiOutlineHome className="fill-secondary" size={14} />
-            <p className="text-xs text-secondary">Home</p>
+            <AiOutlineHome className="fill-secondary" size={18} />
+            <p className="text-md text-secondary">Home</p>
           </Link>
         </DropdownMenuItem>
 
@@ -59,8 +61,8 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
             })
           }}
         >
-          <FiLogOut className="text-secondary" size={14} />
-          <p className="text-xs text-secondary">Sign out</p>
+          <FiLogOut className="text-secondary" size={18} />
+          <p className="text-md text-secondary">Sign out</p>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
