@@ -10,14 +10,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { CreateCategoryPayload } from '@/lib/validators/category'
 import axios, { AxiosError } from 'axios'
-import LoadingSpinner from './Loading/LoadingSpinner'
+import LoadingSpinner from '../Loading/LoadingSpinner'
 import { toast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'

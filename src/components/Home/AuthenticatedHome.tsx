@@ -1,6 +1,6 @@
 import React from 'react'
 import DateTime from '../DateTime'
-import { CreateCategory } from '../CreateCategory'
+import { CreateCategory } from '../Category/CreateCategory'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/db'
 import { task } from '@/db/schema'
