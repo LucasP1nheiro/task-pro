@@ -42,7 +42,7 @@ const SideMenu = async () => {
             <h1 className="border-t p-2 font-bold text-secondary">
               Categories
             </h1>
-            <div className="categories-container h-[800px] space-y-4 overflow-hidden hover:overflow-y-scroll">
+            <div className="h-[800px] space-y-4 overflow-hidden hover:overflow-y-scroll">
               {categories.map((category) => (
                 <li key={category.id}>
                   <Link
