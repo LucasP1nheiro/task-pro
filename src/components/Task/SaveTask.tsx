@@ -52,44 +52,46 @@ const SaveTask = async ({ taskData }: SaveTaskProps) => {
           <p className="text-md">{taskData ? 'Update task' : 'Save task'}</p>
         </Button>
       </SheetTrigger>
-      <SheetContent className="w-full space-y-8 overflow-y-scroll bg-primary">
+      <SheetContent className="w-full  overflow-y-scroll bg-primary">
         <SheetHeader>
           <SheetTitle className="text-2xl text-secondary">Save task</SheetTitle>
           <SheetDescription className="text-md text-tertiary">
             Save your task here. Click save when you&apos;re done.
           </SheetDescription>
         </SheetHeader>
-        <div className="flex w-full items-center justify-between gap-8">
-          <Label htmlFor="name" className="text-md text-right text-secondary">
-            Title
-          </Label>
-          <InputComponent currentTitle={taskData?.title} />
-        </div>
-        <CalendarComponent currentDate={taskData?.expiresAt} />
+        <section className="mt-4 space-y-8">
+          <div className="flex w-full items-center justify-between gap-8">
+            <Label htmlFor="name" className="text-md text-right text-secondary">
+              Title
+            </Label>
+            <InputComponent currentTitle={taskData?.title} />
+          </div>
+          <CalendarComponent currentDate={taskData?.expiresAt} />
 
-        <SelectPriority
-          label="priority"
-          priorityItems={priority}
-          currentPriority={taskData?.priority ?? null}
-        />
-
-        {categories.length > 0 && (
-          <SelectCategory
-            label="category"
-            categoryItems={categories}
-            currentCategoryId={taskData ? taskData.categoryId : null}
+          <SelectPriority
+            label="priority"
+            priorityItems={priority}
+            currentPriority={taskData?.priority ?? null}
           />
-        )}
 
-        {taskData && (
-          <SelectStatus label="status" currentStatus={taskData.status} />
-        )}
+          {categories.length > 0 && (
+            <SelectCategory
+              label="category"
+              categoryItems={categories}
+              currentCategoryId={taskData ? taskData.categoryId : null}
+            />
+          )}
 
-        <SheetFooter>
-          <SheetClose asChild>
-            <SaveTaskButton />
-          </SheetClose>
-        </SheetFooter>
+          {taskData && (
+            <SelectStatus label="status" currentStatus={taskData.status} />
+          )}
+
+          <SheetFooter>
+            <SheetClose asChild>
+              <SaveTaskButton />
+            </SheetClose>
+          </SheetFooter>
+        </section>
       </SheetContent>
     </Sheet>
   )
