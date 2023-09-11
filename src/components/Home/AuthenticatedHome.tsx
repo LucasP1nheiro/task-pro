@@ -12,6 +12,7 @@ import { buttonVariants } from '../ui/button'
 import TasksCard from '../Card/TasksCard'
 import Board from '../Board/Board'
 import BoardContainer from '../Board/BoardContainer'
+import NewTaskAnchor from '../Task/NewTaskAnchor'
 
 const AuthenticatedHome = async () => {
   const session = await getAuthSession()
@@ -28,23 +29,9 @@ const AuthenticatedHome = async () => {
         <DateTime />
         <div className="flex w-auto flex-col items-center justify-end gap-4 lg:flex-row">
           <CreateCategory />
-          <Link
-            href="/create-task"
-            className={cn(
-              buttonVariants({
-                className:
-                  'flex w-full items-center gap-2 border lg:w-[200px] ',
-                variant: 'secondary',
-              }),
-            )}
-          >
-            <AiOutlinePlus className="fill-primary" size={18} />
-            <h1>New task</h1>
-          </Link>
+          <NewTaskAnchor />
         </div>
       </div>
-
-      {/* <CalendarTasks tasks={tasks} /> */}
 
       <Board>
         <BoardContainer title="to do">
