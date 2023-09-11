@@ -4,14 +4,18 @@ import { getAuthSession } from '@/lib/auth'
 import Link from 'next/link'
 import Logo from './Logo'
 import { ThemeToggle } from '../Theme/theme-toggle'
+import SideMenu from '../SideMenu/SideMenu'
 
 const Header = async () => {
   const session = await getAuthSession()
 
   return (
-    <header className="fixed top-0 z-50 flex h-[10%] w-screen border-b bg-primary">
+    <header className="fixed top-0 z-50 flex h-[10%] w-screen bg-primary shadow-xl">
       <nav className="mx-auto flex w-3/4 items-center justify-between">
-        <Logo hasText />
+        <div className="flex items-center gap-4">
+          <Logo hasText />
+          <SideMenu />
+        </div>
 
         <div className="flex items-center gap-4">
           <ThemeToggle />
