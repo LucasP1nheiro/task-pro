@@ -14,7 +14,7 @@ const Header = async () => {
       <nav className="mx-auto flex w-3/4 items-center justify-between">
         <div className="flex items-center gap-4">
           <Logo hasText />
-          <SideMenu />
+          {session?.user && <SideMenu />}
         </div>
 
         <div className="flex items-center gap-4">

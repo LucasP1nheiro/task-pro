@@ -7,6 +7,7 @@ import { db } from '@/db'
 import { category, task } from '@/db/schema'
 import { getAuthSession } from '@/lib/auth'
 import { sql } from 'drizzle-orm'
+import { notFound } from 'next/navigation'
 
 interface PageProps {
   params: {
@@ -16,6 +17,10 @@ interface PageProps {
 
 const page = async ({ params }: PageProps) => {
   const session = await getAuthSession()
+
+  if (!session) {
+    return notFound()
+  }
 
   const [selectedCategory] = await db
     .select()

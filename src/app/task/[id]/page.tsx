@@ -6,6 +6,7 @@ import Editor from '../../../components/Editor/Editor'
 import { sql } from 'drizzle-orm'
 import React from 'react'
 import DeleteTask from '@/components/Task/DeleteTask'
+import { notFound } from 'next/navigation'
 
 interface PageProps {
   params: {
@@ -15,6 +16,10 @@ interface PageProps {
 
 const Page = async ({ params }: PageProps) => {
   const session = await getAuthSession()
+
+  if (!session) {
+    return notFound()
+  }
 
   const [selectedTask] = await db
     .select()
