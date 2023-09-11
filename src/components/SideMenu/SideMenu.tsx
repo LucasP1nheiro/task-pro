@@ -45,17 +45,19 @@ const SideMenu = async () => {
             <div className="h-[800px] space-y-4 overflow-hidden hover:overflow-y-scroll">
               {categories.map((category) => (
                 <li key={category.id}>
-                  <Link
-                    href={`/categories/${category.id}`}
-                    className="flex items-center gap-2 rounded-md p-2 duration-300 hover:bg-secondary/10"
-                  >
-                    <Avatar className="h-6 w-6">
-                      <AvatarFallback>
-                        {category.name.substring(0, 1)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span className="text-secondary">{category.name}</span>
-                  </Link>
+                  <SheetClose asChild>
+                    <Link
+                      href={`/categories/${category.id}`}
+                      className="flex items-center gap-2 rounded-md p-2 duration-300 hover:bg-secondary/10"
+                    >
+                      <Avatar className="h-6 w-6">
+                        <AvatarFallback>
+                          {category.name.substring(0, 1)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-secondary">{category.name}</span>
+                    </Link>
+                  </SheetClose>
                 </li>
               ))}
             </div>
