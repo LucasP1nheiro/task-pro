@@ -33,7 +33,14 @@ export async function POST(req: Request) {
       userId: session.user.id,
     })
 
-    return new Response(name)
+    const [insertedCategory] = await db
+      .select()
+      .from(category)
+      .where(
+        sql`${category.name} = ${name} AND ${category.userId} = ${session.user.id}`,
+      )
+
+    return new Response(`${insertedCategory.id}`)
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 })

@@ -71,7 +71,7 @@ export function CreateCategory() {
       }
     },
     onSuccess: (data) => {
-      router.push(`/category/${data}`)
+      router.push(`/categories/${data}`)
     },
   })
 
