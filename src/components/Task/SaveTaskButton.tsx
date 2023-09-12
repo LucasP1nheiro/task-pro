@@ -68,8 +68,13 @@ const SaveTaskButton = () => {
         })
       }
     },
-    onSuccess: (data) => {
-      router.push(`/category/${data}`)
+    onSuccess: () => {
+      toast({
+        title: 'Congratulations!',
+        description: `The task has been created successfully`,
+        variant: 'default',
+      })
+      router.push(`/`)
     },
   })
 

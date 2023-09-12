@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       expiresAt,
     })
 
-    return new Response(title)
+    return new Response(title, { status: 201 })
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 422 })
@@ -59,8 +59,6 @@ export async function PATCH(req: Request) {
 
     const body = await req.json()
 
-    console.log(body)
-
     const {
       title,
       categoryId,
@@ -70,10 +68,6 @@ export async function PATCH(req: Request) {
       expiresAt,
       status,
     } = UpdateTaskValidator.parse(body)
-
-    console.log('validou', {
-      body,
-    })
 
     await db
       .update(task)
