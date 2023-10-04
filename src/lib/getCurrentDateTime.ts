@@ -18,7 +18,7 @@ export function getCurrentDateTime(): string {
 
   const dayOfWeek = daysOfWeek[date.getDay()]
   const dayOfMonth = date.getDate()
-  const month = monthsOfYear[date.getMonth()]
+
   const year = date.getFullYear()
   let hour = date.getHours()
   const minute = date.getMinutes()
