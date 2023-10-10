@@ -10,6 +10,18 @@ import { task } from '@/db/schema'
 import { getAuthSession } from '@/lib/auth'
 import { sql } from 'drizzle-orm'
 
+const getTasks = async () => {
+  const session = await getAuthSession()
+
+  const tasks = await db
+    .select()
+    .from(task)
+    .where(sql`${task.userId}= ${session?.user.id}`)
+    .orderBy(task.expiresAt)
+
+  return tasks
+}
+
 export default async function Home() {
   const session = await getAuthSession()
 
@@ -17,11 +29,7 @@ export default async function Home() {
     return <LandingPage />
   }
 
-  const tasks = await db
-    .select()
-    .from(task)
-    .where(sql`${task.userId}= ${session?.user.id}`)
-    .orderBy(task.expiresAt)
+  const tasks = await getTasks()
 
   return (
     <main className="my-36 flex min-h-screen w-screen flex-col items-center justify-center space-y-24 p-4">
